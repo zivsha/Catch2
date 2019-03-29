@@ -18,6 +18,7 @@
 #include <cassert>
 #include <memory>
 #include <ostream>
+#include <sstream>
 
 namespace Catch {
     void prepareExpandedExpression(AssertionResult& result);
@@ -52,6 +53,7 @@ namespace Catch {
         void testRunStarting(TestRunInfo const& _testRunInfo) override {
             currentTestRunInfo = _testRunInfo;
         }
+
         void testGroupStarting(GroupInfo const& _groupInfo) override {
             currentGroupInfo = _groupInfo;
         }
@@ -81,6 +83,22 @@ namespace Catch {
         void skipTest(TestCaseInfo const&) override {
             // Don't do anything with this by default.
             // It can optionally be overridden in the derived class.
+        }
+
+        std::string filtersToString() const
+        {
+            std::ostringstream oss;
+            bool first = true;
+            for (auto&& filter : m_config->getTestsOrTags())
+            {
+                if (!first)
+                {
+                    oss << " ";
+                }
+                oss << filter;
+                first = false;
+            }
+            return oss.str();
         }
 
         IConfigPtr m_config;
