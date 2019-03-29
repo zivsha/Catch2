@@ -56,7 +56,7 @@ namespace Catch {
         if( !m_config->name().empty() )
             m_xml.writeAttribute( "name", m_config->name() );
         if (m_config->testSpec().hasFilters())
-            m_xml.writeAttribute( "Filters", containerToString( m_config->getTestsOrTags() ) );
+            m_xml.writeAttribute( "filters", containerToString( m_config->getTestsOrTags() ) );
         if( m_config->rngSeed() != 0 )
             m_xml.scopedElement( "Randomness" )
                 .writeAttribute( "seed", m_config->rngSeed() );
