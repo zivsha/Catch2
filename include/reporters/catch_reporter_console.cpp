@@ -441,7 +441,8 @@ void ConsoleReporter::testRunEnded(TestRunStats const& _testRunStats) {
     stream << std::endl;
     StreamingReporterBase::testRunEnded(_testRunStats);
 }
-void ConsoleReporter::testRunStarting(TestRunInfo const&) {
+void ConsoleReporter::testRunStarting(TestRunInfo const& _testInfo) {
+    StreamingReporterBase::testRunStarting(_testInfo);
     printTestFilters();
 }
 
