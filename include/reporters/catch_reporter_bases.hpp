@@ -26,6 +26,22 @@ namespace Catch {
     // Returns double formatted as %.3f (format expected on output)
     std::string getFormattedDuration( double duration );
 
+    template<typename Container>
+    std::string containerToString( Container const& container, const char seperator = ' ' ) {
+        std::ostringstream oss;
+        bool first = true;
+        for (auto&& filter : container)
+        {
+            if (!first)
+                oss << seperator;
+            else
+                first = false;
+
+            oss << filter;
+        }
+        return oss.str();
+    }
+
     template<typename DerivedT>
     struct StreamingReporterBase : IStreamingReporter {
 
@@ -83,22 +99,6 @@ namespace Catch {
         void skipTest(TestCaseInfo const&) override {
             // Don't do anything with this by default.
             // It can optionally be overridden in the derived class.
-        }
-
-        std::string filtersToString() const
-        {
-            std::ostringstream oss;
-            bool first = true;
-            for (auto&& filter : m_config->getTestsOrTags())
-            {
-                if (!first)
-                {
-                    oss << " ";
-                }
-                oss << filter;
-                first = false;
-            }
-            return oss.str();
         }
 
         IConfigPtr m_config;
