@@ -142,6 +142,19 @@
       </Expression>
       <OverallResult success="true"/>
     </TestCase>
+    <TestCase name="#1514: stderr/stdout is not captured in tests aborted by an exception" tags="[.][output-capture][regression]" filename="projects/<exe-name>/UsageTests/Tricky.tests.cpp" >
+      <Failure filename="projects/<exe-name>/UsageTests/Tricky.tests.cpp" >
+        1514
+      </Failure>
+      <OverallResult success="false">
+        <StdOut>
+This would not be caught previously
+        </StdOut>
+        <StdErr>
+Nor would this
+        </StdErr>
+      </OverallResult>
+    </TestCase>
     <TestCase name="#1548" tags="[compilation]" filename="projects/<exe-name>/UsageTests/Compilation.tests.cpp" >
       <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Compilation.tests.cpp" >
         <Original>
@@ -2903,7 +2916,7 @@
       </Expression>
       <OverallResult success="true"/>
     </TestCase>
-    <TestCase name="Exception matchers that fail" tags="[!throws][.][.failing][exceptions][matchers]" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
+    <TestCase name="Exception matchers that fail" tags="[!throws][.][exceptions][failing][matchers]" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
       <Section name="No exception" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
         <Expression success="false" type="CHECK_THROWS_MATCHES" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
           <Original>
@@ -3723,6 +3736,48 @@
         </Section>
         <OverallResults successes="1" failures="0" expectedFailures="0"/>
       </Section>
+      <Section name="Transforming elements" filename="projects/<exe-name>/UsageTests/Generators.tests.cpp" >
+        <Section name="Different deduced type" filename="projects/<exe-name>/UsageTests/Generators.tests.cpp" >
+          <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Generators.tests.cpp" >
+            <Original>
+              i.size() == 1
+            </Original>
+            <Expanded>
+              1 == 1
+            </Expanded>
+          </Expression>
+          <OverallResults successes="1" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="1" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Transforming elements" filename="projects/<exe-name>/UsageTests/Generators.tests.cpp" >
+        <Section name="Different deduced type" filename="projects/<exe-name>/UsageTests/Generators.tests.cpp" >
+          <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Generators.tests.cpp" >
+            <Original>
+              i.size() == 1
+            </Original>
+            <Expanded>
+              1 == 1
+            </Expanded>
+          </Expression>
+          <OverallResults successes="1" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="1" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Transforming elements" filename="projects/<exe-name>/UsageTests/Generators.tests.cpp" >
+        <Section name="Different deduced type" filename="projects/<exe-name>/UsageTests/Generators.tests.cpp" >
+          <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Generators.tests.cpp" >
+            <Original>
+              i.size() == 1
+            </Original>
+            <Expanded>
+              1 == 1
+            </Expanded>
+          </Expression>
+          <OverallResults successes="1" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="1" failures="0" expectedFailures="0"/>
+      </Section>
       <Section name="Repeating a generator" filename="projects/<exe-name>/UsageTests/Generators.tests.cpp" >
         <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Generators.tests.cpp" >
           <Original>
@@ -4448,7 +4503,58 @@
         </Section>
         <OverallResults successes="2" failures="0" expectedFailures="0"/>
       </Section>
-      <Section name="Map" filename="projects/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+      <Section name="Map with explicit return type" filename="projects/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+          <Original>
+            gen.get() == 2.0
+          </Original>
+          <Expanded>
+            2.0 == 2.0
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+          <Original>
+            gen.next()
+          </Original>
+          <Expanded>
+            true
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+          <Original>
+            gen.get() == 4.0
+          </Original>
+          <Expanded>
+            4.0 == 4.0
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+          <Original>
+            gen.next()
+          </Original>
+          <Expanded>
+            true
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+          <Original>
+            gen.get() == 6.0
+          </Original>
+          <Expanded>
+            6.0 == 6.0
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE_FALSE" filename="projects/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
+          <Original>
+            !(gen.next())
+          </Original>
+          <Expanded>
+            !false
+          </Expanded>
+        </Expression>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Map with deduced return type" filename="projects/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
         <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/IntrospectiveTests/GeneratorsImpl.tests.cpp" >
           <Original>
             gen.get() == 2.0
@@ -5755,7 +5861,7 @@
       </Expression>
       <OverallResult success="true"/>
     </TestCase>
-    <TestCase name="Matchers can be composed with both &amp;&amp; and || - failing" tags="[.][.failing][matchers][operator&amp;&amp;][operators][operator||]" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
+    <TestCase name="Matchers can be composed with both &amp;&amp; and || - failing" tags="[.][failing][matchers][operator&amp;&amp;][operators][operator||]" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
       <Expression success="false" type="CHECK_THAT" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
         <Original>
           testStringForMatching(), (Contains("string") || Contains("different")) &amp;&amp; Contains("random")
@@ -5777,7 +5883,7 @@
       </Expression>
       <OverallResult success="true"/>
     </TestCase>
-    <TestCase name="Matchers can be negated (Not) with the ! operator - failing" tags="[.][.failing][matchers][not][operators]" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
+    <TestCase name="Matchers can be negated (Not) with the ! operator - failing" tags="[.][failing][matchers][not][operators]" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
       <Expression success="false" type="CHECK_THAT" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
         <Original>
           testStringForMatching(), !Contains("substring")
@@ -8099,7 +8205,7 @@
       </Expression>
       <OverallResult success="false"/>
     </TestCase>
-    <TestCase name="Regex string matcher" tags="[.][.failing][matchers]" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
+    <TestCase name="Regex string matcher" tags="[.][failing][matchers]" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
       <Expression success="false" type="CHECK_THAT" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
         <Original>
           testStringForMatching(), Matches("this STRING contains 'abc' as a substring")
@@ -9080,9 +9186,9 @@ Message from section two
       </Expression>
       <OverallResult success="false"/>
     </TestCase>
-    <TestCase name="Tag alias can be registered against tag patterns" filename="projects/<exe-name>/IntrospectiveTests/TagAlias.tests.cpp" >
-      <Section name="The same tag alias can only be registered once" filename="projects/<exe-name>/IntrospectiveTests/TagAlias.tests.cpp" >
-        <Expression success="true" type="CHECK_THAT" filename="projects/<exe-name>/IntrospectiveTests/TagAlias.tests.cpp" >
+    <TestCase name="Tag alias can be registered against tag patterns" filename="projects/<exe-name>/IntrospectiveTests/Tag.tests.cpp" >
+      <Section name="The same tag alias can only be registered once" filename="projects/<exe-name>/IntrospectiveTests/Tag.tests.cpp" >
+        <Expression success="true" type="CHECK_THAT" filename="projects/<exe-name>/IntrospectiveTests/Tag.tests.cpp" >
           <Original>
             what, Contains( "[@zzz]" )
           </Original>
@@ -9092,7 +9198,7 @@ Message from section two
 	Redefined at: file:10" contains: "[@zzz]"
           </Expanded>
         </Expression>
-        <Expression success="true" type="CHECK_THAT" filename="projects/<exe-name>/IntrospectiveTests/TagAlias.tests.cpp" >
+        <Expression success="true" type="CHECK_THAT" filename="projects/<exe-name>/IntrospectiveTests/Tag.tests.cpp" >
           <Original>
             what, Contains( "file" )
           </Original>
@@ -9102,7 +9208,7 @@ Message from section two
 	Redefined at: file:10" contains: "file"
           </Expanded>
         </Expression>
-        <Expression success="true" type="CHECK_THAT" filename="projects/<exe-name>/IntrospectiveTests/TagAlias.tests.cpp" >
+        <Expression success="true" type="CHECK_THAT" filename="projects/<exe-name>/IntrospectiveTests/Tag.tests.cpp" >
           <Original>
             what, Contains( "2" )
           </Original>
@@ -9112,7 +9218,7 @@ Message from section two
 	Redefined at: file:10" contains: "2"
           </Expanded>
         </Expression>
-        <Expression success="true" type="CHECK_THAT" filename="projects/<exe-name>/IntrospectiveTests/TagAlias.tests.cpp" >
+        <Expression success="true" type="CHECK_THAT" filename="projects/<exe-name>/IntrospectiveTests/Tag.tests.cpp" >
           <Original>
             what, Contains( "10" )
           </Original>
@@ -9124,8 +9230,8 @@ Message from section two
         </Expression>
         <OverallResults successes="4" failures="0" expectedFailures="0"/>
       </Section>
-      <Section name="Tag aliases must be of the form [@name]" filename="projects/<exe-name>/IntrospectiveTests/TagAlias.tests.cpp" >
-        <Expression success="true" type="CHECK_THROWS" filename="projects/<exe-name>/IntrospectiveTests/TagAlias.tests.cpp" >
+      <Section name="Tag aliases must be of the form [@name]" filename="projects/<exe-name>/IntrospectiveTests/Tag.tests.cpp" >
+        <Expression success="true" type="CHECK_THROWS" filename="projects/<exe-name>/IntrospectiveTests/Tag.tests.cpp" >
           <Original>
             registry.add( "[no ampersat]", "", Catch::SourceLineInfo( "file", 3 ) )
           </Original>
@@ -9133,7 +9239,7 @@ Message from section two
             registry.add( "[no ampersat]", "", Catch::SourceLineInfo( "file", 3 ) )
           </Expanded>
         </Expression>
-        <Expression success="true" type="CHECK_THROWS" filename="projects/<exe-name>/IntrospectiveTests/TagAlias.tests.cpp" >
+        <Expression success="true" type="CHECK_THROWS" filename="projects/<exe-name>/IntrospectiveTests/Tag.tests.cpp" >
           <Original>
             registry.add( "[the @ is not at the start]", "", Catch::SourceLineInfo( "file", 3 ) )
           </Original>
@@ -9141,7 +9247,7 @@ Message from section two
             registry.add( "[the @ is not at the start]", "", Catch::SourceLineInfo( "file", 3 ) )
           </Expanded>
         </Expression>
-        <Expression success="true" type="CHECK_THROWS" filename="projects/<exe-name>/IntrospectiveTests/TagAlias.tests.cpp" >
+        <Expression success="true" type="CHECK_THROWS" filename="projects/<exe-name>/IntrospectiveTests/Tag.tests.cpp" >
           <Original>
             registry.add( "@no square bracket at start]", "", Catch::SourceLineInfo( "file", 3 ) )
           </Original>
@@ -9149,7 +9255,7 @@ Message from section two
             registry.add( "@no square bracket at start]", "", Catch::SourceLineInfo( "file", 3 ) )
           </Expanded>
         </Expression>
-        <Expression success="true" type="CHECK_THROWS" filename="projects/<exe-name>/IntrospectiveTests/TagAlias.tests.cpp" >
+        <Expression success="true" type="CHECK_THROWS" filename="projects/<exe-name>/IntrospectiveTests/Tag.tests.cpp" >
           <Original>
             registry.add( "[@no square bracket at end", "", Catch::SourceLineInfo( "file", 3 ) )
           </Original>
@@ -11528,7 +11634,16 @@ loose text artifact
       </Failure>
       <OverallResult success="false"/>
     </TestCase>
+    <TestCase name="just failure after unscoped info" tags="[.][failing][info][unscoped]" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+      <Failure filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+        previous unscoped info SHOULD not be seen
+      </Failure>
+      <OverallResult success="false"/>
+    </TestCase>
     <TestCase name="just info" tags="[info][isolated info][messages]" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+      <OverallResult success="false"/>
+    </TestCase>
+    <TestCase name="just unscoped info" tags="[info][unscoped]" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
       <OverallResult success="false"/>
     </TestCase>
     <TestCase name="long long" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
@@ -11748,6 +11863,27 @@ loose text artifact
       </Expression>
       <OverallResult success="false"/>
     </TestCase>
+    <TestCase name="mix info, unscoped info and warning" tags="[info][unscoped]" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+      <Info>
+        info
+      </Info>
+      <Info>
+        unscoped info
+      </Info>
+      <Warning>
+        and warn may mix
+      </Warning>
+      <Info>
+        info
+      </Info>
+      <Info>
+        unscoped info
+      </Info>
+      <Warning>
+        they are not cleared after warnings
+      </Warning>
+      <OverallResult success="false"/>
+    </TestCase>
     <TestCase name="more nested SECTION tests" tags="[.][failing][sections]" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
       <Section name="doesn't equal" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
         <Section name="equal" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
@@ -11851,6 +11987,42 @@ loose text artifact
     <TestCase name="not allowed" tags="[!throws]" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
       <OverallResult success="true"/>
     </TestCase>
+    <TestCase name="not prints unscoped info from previous failures" tags="[.][failing][info][unscoped]" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+      <Info>
+        this MAY be seen only for the FIRST assertion IF info is printed for passing assertions
+      </Info>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+        <Original>
+          true
+        </Original>
+        <Expanded>
+          true
+        </Expanded>
+      </Expression>
+      <Info>
+        this MAY be seen only for the SECOND assertion IF info is printed for passing assertions
+      </Info>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+        <Original>
+          true
+        </Original>
+        <Expanded>
+          true
+        </Expanded>
+      </Expression>
+      <Info>
+        this SHOULD be seen
+      </Info>
+      <Expression success="false" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+        <Original>
+          false
+        </Original>
+        <Expanded>
+          false
+        </Expanded>
+      </Expression>
+      <OverallResult success="false"/>
+    </TestCase>
     <TestCase name="null strings" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
       <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
         <Original>
@@ -11904,6 +12076,78 @@ loose text artifact
         </Expanded>
       </Expression>
       <OverallResult success="true"/>
+    </TestCase>
+    <TestCase name="print unscoped info if passing unscoped info is printed" tags="[info][unscoped]" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+      <Info>
+        this MAY be seen IF info is printed for passing assertions
+      </Info>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+        <Original>
+          true
+        </Original>
+        <Expanded>
+          true
+        </Expanded>
+      </Expression>
+      <OverallResult success="true"/>
+    </TestCase>
+    <TestCase name="prints unscoped info on failure" tags="[.][failing][info][unscoped]" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+      <Info>
+        this SHOULD be seen
+      </Info>
+      <Info>
+        this SHOULD also be seen
+      </Info>
+      <Expression success="false" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+        <Original>
+          false
+        </Original>
+        <Expanded>
+          false
+        </Expanded>
+      </Expression>
+      <OverallResult success="false"/>
+    </TestCase>
+    <TestCase name="prints unscoped info only for the first assertion" tags="[.][failing][info][unscoped]" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+      <Info>
+        this SHOULD be seen only ONCE
+      </Info>
+      <Expression success="false" type="CHECK" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+        <Original>
+          false
+        </Original>
+        <Expanded>
+          false
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="CHECK" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+        <Original>
+          true
+        </Original>
+        <Expanded>
+          true
+        </Expanded>
+      </Expression>
+      <Info>
+        this MAY also be seen only ONCE IF info is printed for passing assertions
+      </Info>
+      <Expression success="true" type="CHECK" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+        <Original>
+          true
+        </Original>
+        <Expanded>
+          true
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="CHECK" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+        <Original>
+          true
+        </Original>
+        <Expanded>
+          true
+        </Expanded>
+      </Expression>
+      <OverallResult success="false"/>
     </TestCase>
     <TestCase name="random SECTION tests" tags="[.][failing][sections]" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
       <Section name="doesn't equal" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
@@ -12099,6 +12343,60 @@ loose text artifact
         i := 7
       </Info>
       <Expression success="false" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+        <Original>
+          false
+        </Original>
+        <Expanded>
+          false
+        </Expanded>
+      </Expression>
+      <OverallResult success="false"/>
+    </TestCase>
+    <TestCase name="shortened hide tags are split apart" filename="projects/<exe-name>/IntrospectiveTests/Tag.tests.cpp" >
+      <Expression success="true" type="REQUIRE_THAT" filename="projects/<exe-name>/IntrospectiveTests/Tag.tests.cpp" >
+        <Original>
+          testcase.tags, Catch::VectorContains(std::string("magic-tag")) &amp;&amp; Catch::VectorContains(std::string("."))
+        </Original>
+        <Expanded>
+          { ".", "magic-tag" } ( Contains: "magic-tag" and Contains: "." )
+        </Expanded>
+      </Expression>
+      <OverallResult success="true"/>
+    </TestCase>
+    <TestCase name="stacks unscoped info in loops" tags="[.][failing][info][unscoped]" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+      <Info>
+        Count 1 to 3...
+      </Info>
+      <Info>
+        1
+      </Info>
+      <Info>
+        2
+      </Info>
+      <Info>
+        3
+      </Info>
+      <Expression success="false" type="CHECK" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+        <Original>
+          false
+        </Original>
+        <Expanded>
+          false
+        </Expanded>
+      </Expression>
+      <Info>
+        Count 4 to 6...
+      </Info>
+      <Info>
+        4
+      </Info>
+      <Info>
+        5
+      </Info>
+      <Info>
+        6
+      </Info>
+      <Expression success="false" type="CHECK" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
         <Original>
           false
         </Original>
@@ -12959,7 +13257,7 @@ loose text artifact
       </Section>
       <OverallResult success="true"/>
     </TestCase>
-    <OverallResults successes="1244" failures="130" expectedFailures="21"/>
+    <OverallResults successes="1260" failures="139" expectedFailures="21"/>
   </Group>
-  <OverallResults successes="1244" failures="129" expectedFailures="21"/>
+  <OverallResults successes="1260" failures="138" expectedFailures="21"/>
 </Catch>

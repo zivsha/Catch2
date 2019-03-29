@@ -14,6 +14,9 @@ Compilation.tests.cpp:<line number>: passed: std::memcmp(uarr, "123", sizeof(uar
 Compilation.tests.cpp:<line number>: passed: std::memcmp(sarr, "456", sizeof(sarr)) == 0 for: 0 == 0 with 2 messages: 'uarr := "123"' and 'sarr := "456"'
 Compilation.tests.cpp:<line number>: passed:
 Compilation.tests.cpp:<line number>: passed: h1 == h2 for: [1403 helper] == [1403 helper]
+This would not be caught previously
+Nor would this
+Tricky.tests.cpp:<line number>: failed: explicitly with 1 message: '1514'
 Compilation.tests.cpp:<line number>: passed: std::is_same<TypeList<int>, TypeList<int>>::value for: true
 Exception.tests.cpp:<line number>: failed: unexpected exception with message: 'answer := 42' with 1 message: 'expected exception'
 Exception.tests.cpp:<line number>: failed: unexpected exception with message: 'answer := 42'; expression was: thisThrows() with 1 message: 'expected exception'
@@ -413,6 +416,9 @@ Generators.tests.cpp:<line number>: passed: i % 2 == 0 for: 0 == 0
 Generators.tests.cpp:<line number>: passed: i.size() == 1 for: 1 == 1
 Generators.tests.cpp:<line number>: passed: i.size() == 1 for: 1 == 1
 Generators.tests.cpp:<line number>: passed: i.size() == 1 for: 1 == 1
+Generators.tests.cpp:<line number>: passed: i.size() == 1 for: 1 == 1
+Generators.tests.cpp:<line number>: passed: i.size() == 1 for: 1 == 1
+Generators.tests.cpp:<line number>: passed: i.size() == 1 for: 1 == 1
 Generators.tests.cpp:<line number>: passed: j > 0 for: 1 > 0
 Generators.tests.cpp:<line number>: passed: j > 0 for: 2 > 0
 Generators.tests.cpp:<line number>: passed: j > 0 for: 3 > 0
@@ -485,6 +491,12 @@ GeneratorsImpl.tests.cpp:<line number>: passed: gen.next() for: true
 GeneratorsImpl.tests.cpp:<line number>: passed: gen.get() == 2 for: 2 == 2
 GeneratorsImpl.tests.cpp:<line number>: passed: !(gen.next()) for: !false
 GeneratorsImpl.tests.cpp:<line number>: passed: gen.get() == 1 for: 1 == 1
+GeneratorsImpl.tests.cpp:<line number>: passed: !(gen.next()) for: !false
+GeneratorsImpl.tests.cpp:<line number>: passed: gen.get() == 2.0 for: 2.0 == 2.0
+GeneratorsImpl.tests.cpp:<line number>: passed: gen.next() for: true
+GeneratorsImpl.tests.cpp:<line number>: passed: gen.get() == 4.0 for: 4.0 == 4.0
+GeneratorsImpl.tests.cpp:<line number>: passed: gen.next() for: true
+GeneratorsImpl.tests.cpp:<line number>: passed: gen.get() == 6.0 for: 6.0 == 6.0
 GeneratorsImpl.tests.cpp:<line number>: passed: !(gen.next()) for: !false
 GeneratorsImpl.tests.cpp:<line number>: passed: gen.get() == 2.0 for: 2.0 == 2.0
 GeneratorsImpl.tests.cpp:<line number>: passed: gen.next() for: true
@@ -992,22 +1004,22 @@ Misc.tests.cpp:<line number>: failed: s1 == s2 for: "if ($b == 10) {
 	$a = 20;
 }
 "
-TagAlias.tests.cpp:<line number>: passed: what, Contains( "[@zzz]" ) for: "error: tag alias, '[@zzz]' already registered.
+Tag.tests.cpp:<line number>: passed: what, Contains( "[@zzz]" ) for: "error: tag alias, '[@zzz]' already registered.
 	First seen at: file:2
 	Redefined at: file:10" contains: "[@zzz]"
-TagAlias.tests.cpp:<line number>: passed: what, Contains( "file" ) for: "error: tag alias, '[@zzz]' already registered.
+Tag.tests.cpp:<line number>: passed: what, Contains( "file" ) for: "error: tag alias, '[@zzz]' already registered.
 	First seen at: file:2
 	Redefined at: file:10" contains: "file"
-TagAlias.tests.cpp:<line number>: passed: what, Contains( "2" ) for: "error: tag alias, '[@zzz]' already registered.
+Tag.tests.cpp:<line number>: passed: what, Contains( "2" ) for: "error: tag alias, '[@zzz]' already registered.
 	First seen at: file:2
 	Redefined at: file:10" contains: "2"
-TagAlias.tests.cpp:<line number>: passed: what, Contains( "10" ) for: "error: tag alias, '[@zzz]' already registered.
+Tag.tests.cpp:<line number>: passed: what, Contains( "10" ) for: "error: tag alias, '[@zzz]' already registered.
 	First seen at: file:2
 	Redefined at: file:10" contains: "10"
-TagAlias.tests.cpp:<line number>: passed: registry.add( "[no ampersat]", "", Catch::SourceLineInfo( "file", 3 ) )
-TagAlias.tests.cpp:<line number>: passed: registry.add( "[the @ is not at the start]", "", Catch::SourceLineInfo( "file", 3 ) )
-TagAlias.tests.cpp:<line number>: passed: registry.add( "@no square bracket at start]", "", Catch::SourceLineInfo( "file", 3 ) )
-TagAlias.tests.cpp:<line number>: passed: registry.add( "[@no square bracket at end", "", Catch::SourceLineInfo( "file", 3 ) )
+Tag.tests.cpp:<line number>: passed: registry.add( "[no ampersat]", "", Catch::SourceLineInfo( "file", 3 ) )
+Tag.tests.cpp:<line number>: passed: registry.add( "[the @ is not at the start]", "", Catch::SourceLineInfo( "file", 3 ) )
+Tag.tests.cpp:<line number>: passed: registry.add( "@no square bracket at start]", "", Catch::SourceLineInfo( "file", 3 ) )
+Tag.tests.cpp:<line number>: passed: registry.add( "[@no square bracket at end", "", Catch::SourceLineInfo( "file", 3 ) )
 Misc.tests.cpp:<line number>: passed: v.size() == 5 for: 5 == 5
 Misc.tests.cpp:<line number>: passed: v.capacity() >= 5 for: 5 >= 5
 Misc.tests.cpp:<line number>: passed: v.size() == 10 for: 10 == 10
@@ -1282,6 +1294,7 @@ Misc.tests.cpp:<line number>: passed:
 Misc.tests.cpp:<line number>: passed:
 loose text artifact
 Message.tests.cpp:<line number>: failed: explicitly with 1 message: 'Previous info should not be seen'
+Message.tests.cpp:<line number>: failed: explicitly with 1 message: 'previous unscoped info SHOULD not be seen'
 Misc.tests.cpp:<line number>: passed: l == std::numeric_limits<long long>::max() for: 9223372036854775807 (0x<hex digits>)
 ==
 9223372036854775807 (0x<hex digits>)
@@ -1303,6 +1316,8 @@ Misc.tests.cpp:<line number>: failed: ( fib[i] % 2 ) == 0 for: 1 == 0 with 1 mes
 Misc.tests.cpp:<line number>: passed: ( fib[i] % 2 ) == 0 for: 0 == 0 with 1 message: 'Testing if fib[5] (8) is even'
 Misc.tests.cpp:<line number>: failed: ( fib[i] % 2 ) == 0 for: 1 == 0 with 1 message: 'Testing if fib[6] (13) is even'
 Misc.tests.cpp:<line number>: failed: ( fib[i] % 2 ) == 0 for: 1 == 0 with 1 message: 'Testing if fib[7] (21) is even'
+Message.tests.cpp:<line number>: warning: 'info' with 2 messages: 'unscoped info' and 'and warn may mix'
+Message.tests.cpp:<line number>: warning: 'info' with 2 messages: 'unscoped info' and 'they are not cleared after warnings'
 Misc.tests.cpp:<line number>: failed: a == b for: 1 == 2
 Misc.tests.cpp:<line number>: passed: a != b for: 1 != 2
 Misc.tests.cpp:<line number>: passed: a < b for: 1 < 2
@@ -1312,6 +1327,9 @@ Misc.tests.cpp:<line number>: passed: a != b for: 1 != 2
 Tricky.tests.cpp:<line number>: passed: s == "7" for: "7" == "7"
 Tricky.tests.cpp:<line number>: passed: ti == typeid(int) for: {?} == {?}
 Misc.tests.cpp:<line number>: passed:
+Message.tests.cpp:<line number>: passed: true with 1 message: 'this MAY be seen only for the FIRST assertion IF info is printed for passing assertions'
+Message.tests.cpp:<line number>: passed: true with 1 message: 'this MAY be seen only for the SECOND assertion IF info is printed for passing assertions'
+Message.tests.cpp:<line number>: failed: false with 1 message: 'this SHOULD be seen'
 Misc.tests.cpp:<line number>: passed: makeString( false ) != static_cast<char*>(0) for: "valid string" != {null string}
 Misc.tests.cpp:<line number>: passed: makeString( true ) == static_cast<char*>(0) for: {null string} == {null string}
 Tricky.tests.cpp:<line number>: passed: ptr.get() == 0 for: 0 == 0
@@ -1319,6 +1337,12 @@ ToStringPair.tests.cpp:<line number>: passed: ::Catch::Detail::stringify( pair )
 ==
 "{ { 42, "Arthur" }, { "Ford", 24 } }"
 Tricky.tests.cpp:<line number>: passed: p == 0 for: 0 == 0
+Message.tests.cpp:<line number>: passed: true with 1 message: 'this MAY be seen IF info is printed for passing assertions'
+Message.tests.cpp:<line number>: failed: false with 2 messages: 'this SHOULD be seen' and 'this SHOULD also be seen'
+Message.tests.cpp:<line number>: failed: false with 1 message: 'this SHOULD be seen only ONCE'
+Message.tests.cpp:<line number>: passed: true
+Message.tests.cpp:<line number>: passed: true with 1 message: 'this MAY also be seen only ONCE IF info is printed for passing assertions'
+Message.tests.cpp:<line number>: passed: true
 Misc.tests.cpp:<line number>: passed: a != b for: 1 != 2
 Misc.tests.cpp:<line number>: passed: b != a for: 2 != 1
 Misc.tests.cpp:<line number>: passed: a != b for: 1 != 2
@@ -1338,6 +1362,9 @@ String.tests.cpp:<line number>: passed: Catch::replaceInPlace( s, "'", "|'" ) fo
 String.tests.cpp:<line number>: passed: s == "didn|'t" for: "didn|'t" == "didn|'t"
 Misc.tests.cpp:<line number>: failed: false with 1 message: '3'
 Message.tests.cpp:<line number>: failed: false with 2 messages: 'hi' and 'i := 7'
+Tag.tests.cpp:<line number>: passed: testcase.tags, Catch::VectorContains(std::string("magic-tag")) && Catch::VectorContains(std::string(".")) for: { ".", "magic-tag" } ( Contains: "magic-tag" and Contains: "." )
+Message.tests.cpp:<line number>: failed: false with 4 messages: 'Count 1 to 3...' and '1' and '2' and '3'
+Message.tests.cpp:<line number>: failed: false with 4 messages: 'Count 4 to 6...' and '4' and '5' and '6'
 ToStringGeneral.tests.cpp:<line number>: passed: Catch::Detail::stringify( emptyMap ) == "{  }" for: "{  }" == "{  }"
 ToStringGeneral.tests.cpp:<line number>: passed: Catch::Detail::stringify( map ) == "{ { \"one\", 1 } }" for: "{ { "one", 1 } }" == "{ { "one", 1 } }"
 ToStringGeneral.tests.cpp:<line number>: passed: Catch::Detail::stringify( map ) == "{ { \"abc\", 1 }, { \"def\", 2 }, { \"ghi\", 3 } }" for: "{ { "abc", 1 }, { "def", 2 }, { "ghi", 3 } }"
@@ -1459,5 +1486,5 @@ Misc.tests.cpp:<line number>: passed: v.size() == 5 for: 5 == 5
 Misc.tests.cpp:<line number>: passed: v.capacity() >= 5 for: 5 >= 5
 Misc.tests.cpp:<line number>: passed:
 Misc.tests.cpp:<line number>: passed:
-Failed 69 test cases, failed 129 assertions.
+Failed 77 test cases, failed 138 assertions.
 

@@ -5,7 +5,7 @@
     <property name="random-seed" value="1"/>
   </properties>
 loose text artifact
-  <testsuite name="<exe-name>" errors="17" failures="113" tests="1395" hostname="tbd" time="{duration}" timestamp="{iso8601-timestamp}">
+  <testsuite name="<exe-name>" errors="17" failures="122" tests="1420" hostname="tbd" time="{duration}" timestamp="{iso8601-timestamp}">
     <testcase classname="<exe-name>.global" name="# A test name that starts with a #" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="#1005: Comparing pointer to int and long (NULL can be either on various systems)" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="#1027" time="{duration}"/>
@@ -14,6 +14,18 @@ loose text artifact
     <testcase classname="<exe-name>.global" name="#1238" time="{duration}"/>
     <testcase classname="<exe-name>.(Fixture_1245&lt;int, int>)" name="#1245" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="#1403" time="{duration}"/>
+    <testcase classname="<exe-name>.global" name="#1514: stderr/stdout is not captured in tests aborted by an exception" time="{duration}">
+      <failure type="FAIL">
+1514
+Tricky.tests.cpp:<line number>
+      </failure>
+      <system-out>
+This would not be caught previously
+      </system-out>
+      <system-err>
+Nor would this
+      </system-err>
+    </testcase>
     <testcase classname="<exe-name>.global" name="#1548" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="#748 - captures with unexpected exceptions/outside assertions" time="{duration}">
       <error type="TEST_CASE">
@@ -349,6 +361,7 @@ Message.tests.cpp:<line number>
     <testcase classname="<exe-name>.global" name="Generators -- adapters/Shortening a range" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="Generators -- adapters/Transforming elements/Same type" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="Generators -- adapters/Transforming elements/Different type" time="{duration}"/>
+    <testcase classname="<exe-name>.global" name="Generators -- adapters/Transforming elements/Different deduced type" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="Generators -- adapters/Repeating a generator" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="Generators -- adapters/Chunking a generator into sized pieces/Number of elements in source is divisible by chunk size" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="Generators -- adapters/Chunking a generator into sized pieces/Number of elements in source is not divisible by chunk size" time="{duration}"/>
@@ -362,7 +375,8 @@ Message.tests.cpp:<line number>
     <testcase classname="<exe-name>.global" name="Generators internals/Filter generator" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="Generators internals/Take generator/Take less" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="Generators internals/Take generator/Take more" time="{duration}"/>
-    <testcase classname="<exe-name>.global" name="Generators internals/Map" time="{duration}"/>
+    <testcase classname="<exe-name>.global" name="Generators internals/Map with explicit return type" time="{duration}"/>
+    <testcase classname="<exe-name>.global" name="Generators internals/Map with deduced return type" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="Generators internals/Repeat/Singular repeat" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="Generators internals/Repeat/Actual repeat" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="Generators internals/Range/Positive auto step/Integer" time="{duration}"/>
@@ -857,6 +871,12 @@ Previous info should not be seen
 Message.tests.cpp:<line number>
       </failure>
     </testcase>
+    <testcase classname="<exe-name>.global" name="just failure after unscoped info" time="{duration}">
+      <failure type="FAIL">
+previous unscoped info SHOULD not be seen
+Message.tests.cpp:<line number>
+      </failure>
+    </testcase>
     <testcase classname="<exe-name>.global" name="long long" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="looped SECTION tests/b is currently: 0" time="{duration}">
       <failure message="0 > 1" type="CHECK">
@@ -902,6 +922,7 @@ Testing if fib[7] (21) is even
 Misc.tests.cpp:<line number>
       </failure>
     </testcase>
+    <testcase classname="<exe-name>.global" name="mix info, unscoped info and warning" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="more nested SECTION tests/equal/doesn't equal" time="{duration}">
       <failure message="1 == 2" type="REQUIRE">
 Misc.tests.cpp:<line number>
@@ -914,10 +935,30 @@ Misc.tests.cpp:<line number>
     <testcase classname="<exe-name>.global" name="non streamable - with conv. op" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="non-copyable objects" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="not allowed" time="{duration}"/>
+    <testcase classname="<exe-name>.global" name="not prints unscoped info from previous failures" time="{duration}">
+      <failure message="false" type="REQUIRE">
+this SHOULD be seen
+Message.tests.cpp:<line number>
+      </failure>
+    </testcase>
     <testcase classname="<exe-name>.global" name="null strings" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="null_ptr" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="pair&lt;pair&lt;int,const char *,pair&lt;std::string,int> > -> toString" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="pointer to class" time="{duration}"/>
+    <testcase classname="<exe-name>.global" name="print unscoped info if passing unscoped info is printed" time="{duration}"/>
+    <testcase classname="<exe-name>.global" name="prints unscoped info on failure" time="{duration}">
+      <failure message="false" type="REQUIRE">
+this SHOULD be seen
+this SHOULD also be seen
+Message.tests.cpp:<line number>
+      </failure>
+    </testcase>
+    <testcase classname="<exe-name>.global" name="prints unscoped info only for the first assertion" time="{duration}">
+      <failure message="false" type="CHECK">
+this SHOULD be seen only ONCE
+Message.tests.cpp:<line number>
+      </failure>
+    </testcase>
     <testcase classname="<exe-name>.global" name="random SECTION tests/doesn't equal" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="random SECTION tests/not equal" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="replaceInPlace/replace single char" time="{duration}"/>
@@ -937,6 +978,23 @@ Misc.tests.cpp:<line number>
       <failure message="false" type="REQUIRE">
 hi
 i := 7
+Message.tests.cpp:<line number>
+      </failure>
+    </testcase>
+    <testcase classname="<exe-name>.global" name="shortened hide tags are split apart" time="{duration}"/>
+    <testcase classname="<exe-name>.global" name="stacks unscoped info in loops" time="{duration}">
+      <failure message="false" type="CHECK">
+Count 1 to 3...
+1
+2
+3
+Message.tests.cpp:<line number>
+      </failure>
+      <failure message="false" type="CHECK">
+Count 4 to 6...
+4
+5
+6
 Message.tests.cpp:<line number>
       </failure>
     </testcase>
@@ -999,11 +1057,13 @@ Exception.tests.cpp:<line number>
     <testcase classname="<exe-name>.global" name="xmlentitycheck/embedded xml: &lt;test>it should be possible to embed xml characters, such as &lt;, &quot; or &amp;, or even whole &lt;xml>documents&lt;/xml> within an attribute&lt;/test>" time="{duration}"/>
     <testcase classname="<exe-name>.global" name="xmlentitycheck/encoded chars: these should all be encoded: &amp;&amp;&amp;&quot;&quot;&quot;&lt;&lt;&lt;&amp;&quot;&lt;&lt;&amp;&quot;" time="{duration}"/>
     <system-out>
+This would not be caught previously
 A string sent directly to stdout
 Message from section one
 Message from section two
     </system-out>
     <system-err>
+Nor would this
 A string sent directly to stderr
 A string sent to stderr via clog
     </system-err>
