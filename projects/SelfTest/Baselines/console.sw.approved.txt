@@ -133,6 +133,18 @@ Compilation.tests.cpp:<line number>: PASSED:
 with expansion:
   [1403 helper] == [1403 helper]
 
+This would not be caught previously
+Nor would this
+-------------------------------------------------------------------------------
+#1514: stderr/stdout is not captured in tests aborted by an exception
+-------------------------------------------------------------------------------
+Tricky.tests.cpp:<line number>
+...............................................................................
+
+Tricky.tests.cpp:<line number>: FAILED:
+explicitly with message:
+  1514
+
 -------------------------------------------------------------------------------
 #1548
 -------------------------------------------------------------------------------
@@ -3035,6 +3047,45 @@ with expansion:
 
 -------------------------------------------------------------------------------
 Generators -- adapters
+  Transforming elements
+  Different deduced type
+-------------------------------------------------------------------------------
+Generators.tests.cpp:<line number>
+...............................................................................
+
+Generators.tests.cpp:<line number>: PASSED:
+  REQUIRE( i.size() == 1 )
+with expansion:
+  1 == 1
+
+-------------------------------------------------------------------------------
+Generators -- adapters
+  Transforming elements
+  Different deduced type
+-------------------------------------------------------------------------------
+Generators.tests.cpp:<line number>
+...............................................................................
+
+Generators.tests.cpp:<line number>: PASSED:
+  REQUIRE( i.size() == 1 )
+with expansion:
+  1 == 1
+
+-------------------------------------------------------------------------------
+Generators -- adapters
+  Transforming elements
+  Different deduced type
+-------------------------------------------------------------------------------
+Generators.tests.cpp:<line number>
+...............................................................................
+
+Generators.tests.cpp:<line number>: PASSED:
+  REQUIRE( i.size() == 1 )
+with expansion:
+  1 == 1
+
+-------------------------------------------------------------------------------
+Generators -- adapters
   Repeating a generator
 -------------------------------------------------------------------------------
 Generators.tests.cpp:<line number>
@@ -3663,7 +3714,44 @@ with expansion:
 
 -------------------------------------------------------------------------------
 Generators internals
-  Map
+  Map with explicit return type
+-------------------------------------------------------------------------------
+GeneratorsImpl.tests.cpp:<line number>
+...............................................................................
+
+GeneratorsImpl.tests.cpp:<line number>: PASSED:
+  REQUIRE( gen.get() == 2.0 )
+with expansion:
+  2.0 == 2.0
+
+GeneratorsImpl.tests.cpp:<line number>: PASSED:
+  REQUIRE( gen.next() )
+with expansion:
+  true
+
+GeneratorsImpl.tests.cpp:<line number>: PASSED:
+  REQUIRE( gen.get() == 4.0 )
+with expansion:
+  4.0 == 4.0
+
+GeneratorsImpl.tests.cpp:<line number>: PASSED:
+  REQUIRE( gen.next() )
+with expansion:
+  true
+
+GeneratorsImpl.tests.cpp:<line number>: PASSED:
+  REQUIRE( gen.get() == 6.0 )
+with expansion:
+  6.0 == 6.0
+
+GeneratorsImpl.tests.cpp:<line number>: PASSED:
+  REQUIRE_FALSE( gen.next() )
+with expansion:
+  !false
+
+-------------------------------------------------------------------------------
+Generators internals
+  Map with deduced return type
 -------------------------------------------------------------------------------
 GeneratorsImpl.tests.cpp:<line number>
 ...............................................................................
@@ -7227,31 +7315,31 @@ with expansion:
 Tag alias can be registered against tag patterns
   The same tag alias can only be registered once
 -------------------------------------------------------------------------------
-TagAlias.tests.cpp:<line number>
+Tag.tests.cpp:<line number>
 ...............................................................................
 
-TagAlias.tests.cpp:<line number>: PASSED:
+Tag.tests.cpp:<line number>: PASSED:
   CHECK_THAT( what, Contains( "[@zzz]" ) )
 with expansion:
   "error: tag alias, '[@zzz]' already registered.
   	First seen at: file:2
   	Redefined at: file:10" contains: "[@zzz]"
 
-TagAlias.tests.cpp:<line number>: PASSED:
+Tag.tests.cpp:<line number>: PASSED:
   CHECK_THAT( what, Contains( "file" ) )
 with expansion:
   "error: tag alias, '[@zzz]' already registered.
   	First seen at: file:2
   	Redefined at: file:10" contains: "file"
 
-TagAlias.tests.cpp:<line number>: PASSED:
+Tag.tests.cpp:<line number>: PASSED:
   CHECK_THAT( what, Contains( "2" ) )
 with expansion:
   "error: tag alias, '[@zzz]' already registered.
   	First seen at: file:2
   	Redefined at: file:10" contains: "2"
 
-TagAlias.tests.cpp:<line number>: PASSED:
+Tag.tests.cpp:<line number>: PASSED:
   CHECK_THAT( what, Contains( "10" ) )
 with expansion:
   "error: tag alias, '[@zzz]' already registered.
@@ -7262,19 +7350,19 @@ with expansion:
 Tag alias can be registered against tag patterns
   Tag aliases must be of the form [@name]
 -------------------------------------------------------------------------------
-TagAlias.tests.cpp:<line number>
+Tag.tests.cpp:<line number>
 ...............................................................................
 
-TagAlias.tests.cpp:<line number>: PASSED:
+Tag.tests.cpp:<line number>: PASSED:
   CHECK_THROWS( registry.add( "[no ampersat]", "", Catch::SourceLineInfo( "file", 3 ) ) )
 
-TagAlias.tests.cpp:<line number>: PASSED:
+Tag.tests.cpp:<line number>: PASSED:
   CHECK_THROWS( registry.add( "[the @ is not at the start]", "", Catch::SourceLineInfo( "file", 3 ) ) )
 
-TagAlias.tests.cpp:<line number>: PASSED:
+Tag.tests.cpp:<line number>: PASSED:
   CHECK_THROWS( registry.add( "@no square bracket at start]", "", Catch::SourceLineInfo( "file", 3 ) ) )
 
-TagAlias.tests.cpp:<line number>: PASSED:
+Tag.tests.cpp:<line number>: PASSED:
   CHECK_THROWS( registry.add( "[@no square bracket at end", "", Catch::SourceLineInfo( "file", 3 ) ) )
 
 -------------------------------------------------------------------------------
@@ -9357,6 +9445,16 @@ explicitly with message:
   Previous info should not be seen
 
 -------------------------------------------------------------------------------
+just failure after unscoped info
+-------------------------------------------------------------------------------
+Message.tests.cpp:<line number>
+...............................................................................
+
+Message.tests.cpp:<line number>: FAILED:
+explicitly with message:
+  previous unscoped info SHOULD not be seen
+
+-------------------------------------------------------------------------------
 just info
 -------------------------------------------------------------------------------
 Message.tests.cpp:<line number>
@@ -9364,6 +9462,15 @@ Message.tests.cpp:<line number>
 
 
 No assertions in test case 'just info'
+
+-------------------------------------------------------------------------------
+just unscoped info
+-------------------------------------------------------------------------------
+Message.tests.cpp:<line number>
+...............................................................................
+
+
+No assertions in test case 'just unscoped info'
 
 -------------------------------------------------------------------------------
 long long
@@ -9561,6 +9668,25 @@ with message:
   Testing if fib[7] (21) is even
 
 -------------------------------------------------------------------------------
+mix info, unscoped info and warning
+-------------------------------------------------------------------------------
+Message.tests.cpp:<line number>
+...............................................................................
+
+Message.tests.cpp:<line number>: warning:
+  info
+  unscoped info
+  and warn may mix
+
+Message.tests.cpp:<line number>: warning:
+  info
+  unscoped info
+  they are not cleared after warnings
+
+
+No assertions in test case 'mix info, unscoped info and warning'
+
+-------------------------------------------------------------------------------
 more nested SECTION tests
   doesn't equal
   equal
@@ -9660,6 +9786,29 @@ Misc.tests.cpp:<line number>
 Misc.tests.cpp:<line number>: PASSED:
 
 -------------------------------------------------------------------------------
+not prints unscoped info from previous failures
+-------------------------------------------------------------------------------
+Message.tests.cpp:<line number>
+...............................................................................
+
+Message.tests.cpp:<line number>: PASSED:
+  REQUIRE( true )
+with message:
+  this MAY be seen only for the FIRST assertion IF info is printed for passing
+  assertions
+
+Message.tests.cpp:<line number>: PASSED:
+  REQUIRE( true )
+with message:
+  this MAY be seen only for the SECOND assertion IF info is printed for passing
+  assertions
+
+Message.tests.cpp:<line number>: FAILED:
+  REQUIRE( false )
+with message:
+  this SHOULD be seen
+
+-------------------------------------------------------------------------------
 null strings
 -------------------------------------------------------------------------------
 Misc.tests.cpp:<line number>
@@ -9709,6 +9858,51 @@ Tricky.tests.cpp:<line number>: PASSED:
   REQUIRE( p == 0 )
 with expansion:
   0 == 0
+
+-------------------------------------------------------------------------------
+print unscoped info if passing unscoped info is printed
+-------------------------------------------------------------------------------
+Message.tests.cpp:<line number>
+...............................................................................
+
+Message.tests.cpp:<line number>: PASSED:
+  REQUIRE( true )
+with message:
+  this MAY be seen IF info is printed for passing assertions
+
+-------------------------------------------------------------------------------
+prints unscoped info on failure
+-------------------------------------------------------------------------------
+Message.tests.cpp:<line number>
+...............................................................................
+
+Message.tests.cpp:<line number>: FAILED:
+  REQUIRE( false )
+with messages:
+  this SHOULD be seen
+  this SHOULD also be seen
+
+-------------------------------------------------------------------------------
+prints unscoped info only for the first assertion
+-------------------------------------------------------------------------------
+Message.tests.cpp:<line number>
+...............................................................................
+
+Message.tests.cpp:<line number>: FAILED:
+  CHECK( false )
+with message:
+  this SHOULD be seen only ONCE
+
+Message.tests.cpp:<line number>: PASSED:
+  CHECK( true )
+
+Message.tests.cpp:<line number>: PASSED:
+  CHECK( true )
+with message:
+  this MAY also be seen only ONCE IF info is printed for passing assertions
+
+Message.tests.cpp:<line number>: PASSED:
+  CHECK( true )
 
 -------------------------------------------------------------------------------
 random SECTION tests
@@ -9889,6 +10083,39 @@ Message.tests.cpp:<line number>: FAILED:
 with messages:
   hi
   i := 7
+
+-------------------------------------------------------------------------------
+shortened hide tags are split apart
+-------------------------------------------------------------------------------
+Tag.tests.cpp:<line number>
+...............................................................................
+
+Tag.tests.cpp:<line number>: PASSED:
+  REQUIRE_THAT( testcase.tags, Catch::VectorContains(std::string("magic-tag")) && Catch::VectorContains(std::string(".")) )
+with expansion:
+  { ".", "magic-tag" } ( Contains: "magic-tag" and Contains: "." )
+
+-------------------------------------------------------------------------------
+stacks unscoped info in loops
+-------------------------------------------------------------------------------
+Message.tests.cpp:<line number>
+...............................................................................
+
+Message.tests.cpp:<line number>: FAILED:
+  CHECK( false )
+with messages:
+  Count 1 to 3...
+  1
+  2
+  3
+
+Message.tests.cpp:<line number>: FAILED:
+  CHECK( false )
+with messages:
+  Count 4 to 6...
+  4
+  5
+  6
 
 -------------------------------------------------------------------------------
 std::map is convertible string
@@ -10709,6 +10936,6 @@ Misc.tests.cpp:<line number>
 Misc.tests.cpp:<line number>: PASSED:
 
 ===============================================================================
-test cases:  246 |  173 passed |  69 failed |  4 failed as expected
-assertions: 1394 | 1244 passed | 129 failed | 21 failed as expected
+test cases:  256 |  175 passed |  77 failed |  4 failed as expected
+assertions: 1419 | 1260 passed | 138 failed | 21 failed as expected
 

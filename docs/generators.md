@@ -57,11 +57,11 @@ type, making their usage much nicer. These are
 * `filter(predicate, GeneratorWrapper<T>&&)` for `FilterGenerator<T, Predicate>`
 * `take(count, GeneratorWrapper<T>&&)` for `TakeGenerator<T>`
 * `repeat(repeats, GeneratorWrapper<T>&&)` for `RepeatGenerator<T>`
-* `map(func, GeneratorWrapper<T>&&)` for `MapGenerator<T, T, Func>` (map `T` to `T`)
+* `map(func, GeneratorWrapper<T>&&)` for `MapGenerator<T, U, Func>` (map `U` to `T`, deduced from `Func`)
 * `map<T>(func, GeneratorWrapper<U>&&)` for `MapGenerator<T, U, Func>` (map `U` to `T`)
 * `chunk(chunk-size, GeneratorWrapper<T>&&)` for `ChunkGenerator<T>`
 * `random(IntegerOrFloat a, IntegerOrFloat b)` for `RandomIntegerGenerator` or `RandomFloatGenerator`
-* `range(start, end)` for `RangeGenerator<T>` with a step size of `1` 
+* `range(start, end)` for `RangeGenerator<T>` with a step size of `1`
 * `range(start, end, step)` for `RangeGenerator<T>` with a custom step size
 
 
@@ -98,7 +98,7 @@ if you want them to come out as `std::string`:
 
 ```cpp
 TEST_CASE("type conversion", "[generators]") {
-    auto str = GENERATE(as<std::string>{}, "a", "bb", "ccc");`
+    auto str = GENERATE(as<std::string>{}, "a", "bb", "ccc");
     REQUIRE(str.size() > 0);
 }
 ```
