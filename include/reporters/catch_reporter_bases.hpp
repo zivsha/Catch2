@@ -26,21 +26,7 @@ namespace Catch {
     // Returns double formatted as %.3f (format expected on output)
     std::string getFormattedDuration( double duration );
 
-    template<typename Container>
-    std::string containerToString( Container const& container, const char seperator = ' ' ) {
-        std::ostringstream oss;
-        bool first = true;
-        for (auto&& filter : container)
-        {
-            if (!first)
-                oss << seperator;
-            else
-                first = false;
-
-            oss << filter;
-        }
-        return oss.str();
-    }
+    std::string serializeFilters( std::vector<std::string> const& container );
 
     template<typename DerivedT>
     struct StreamingReporterBase : IStreamingReporter {

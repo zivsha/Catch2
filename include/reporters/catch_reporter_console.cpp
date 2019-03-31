@@ -628,7 +628,7 @@ void ConsoleReporter::printSummaryDivider() {
 
 void ConsoleReporter::printTestFilters() {
     if (m_config->testSpec().hasFilters())
-        stream << Colour(Colour::BrightYellow) << "Filters: " << containerToString( m_config->getTestsOrTags() ) << '\n';
+        stream << Colour(Colour::BrightYellow) << "Filters: " << serializeFilters( m_config->getTestsOrTags() ) << '\n';
 }
 
 CATCH_REGISTER_REPORTER("console", ConsoleReporter)

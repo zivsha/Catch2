@@ -83,7 +83,7 @@ namespace Catch {
         if ( m_config->hasTestFilters() ) {
             xml.scopedElement( "property" )
                 .writeAttribute( "name" , "filters" )
-                .writeAttribute( "value" , containerToString( m_config->getTestsOrTags() ) );
+                .writeAttribute( "value" , serializeFilters( m_config->getTestsOrTags() ) );
         }
         
         if( m_config->rngSeed() != 0 ) {
